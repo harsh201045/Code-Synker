@@ -7,7 +7,7 @@ import SessionWrapper from "@/Components/SessionWrapper";
 
 export const metadata = {
   title: "Code-Synker",
-  description: "Sync Your code!!!!",
+  description: "Sync Your code now!!!!",
 };
 
 export default function RootLayout({ children }) {
