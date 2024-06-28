@@ -7,10 +7,7 @@ import GitHubProvider from "next-auth/providers/github";
 import mongoose from 'mongoose';
 import { dbConnect } from '@/lib/db';
 import User from '@/models/User';
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URL);
 
 export const authoptions = NextAuth({
   providers: [
@@ -47,24 +44,25 @@ export const authoptions = NextAuth({
     async signIn({ user, account, profile, email, credentials }) {
       await dbConnect();
       const userExists = await User.findOne({ email: user.email, provider: account.provider });
+      console.log("userExists:", userExists);
       if (userExists)
         return true;
-      console.log("Here", account.provider);
       try {
         const response = await User.create({
           name: user.name,
           email: user.email,
-          username: user.email.split('@')[0],
+          username: user.email,
           provider: account.provider,
           image: user.image
         });
-        console.log("This", response);
-        if (response)
+        const userName = response._id;
+        const updateDone = await User.findByIdAndUpdate(userName, {username : userName});
+        if (updateDone)
           return true;
         else
           return false;
       } catch (e) {
-        console.log("error:", e);
+        return false;
       }
     }
 

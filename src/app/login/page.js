@@ -1,9 +1,14 @@
 "use client"
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
+import { redirect } from 'next/navigation'
 
 
 const Login = () => {
+    const { data: session } = useSession();
+    if(session) {
+        redirect('/profile');
+    }
     return (
         <div className='text-white py-14 container mx-auto'>
             <h1 className='text-center font-bold text-3xl '>Login to make your project in Sync!!!</h1>
@@ -15,7 +20,7 @@ const Login = () => {
                         <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                             viewBox="-0.5 0 48 48" version="1.1">
 
-                            <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                                 <g id="Color-" transform="translate(-401.000000, -860.000000)">
                                     <g id="Google" transform="translate(401.000000, 860.000000)">
                                         <path
@@ -38,16 +43,16 @@ const Login = () => {
                     </button>
 
 
-
+                    <p className='text-gray-300'>OR</p>
 
                     <button onClick={()=>{signIn("github")}}
                         className="flex items-center w-64 bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 73 73" version="1.1">
-                            <g id="team-collaboration/version-control/github" stroke="none" stroke-width="1" fill="none"
-                                fill-rule="evenodd">
-                                <g id="container" transform="translate(2.000000, 2.000000)" fill-rule="nonzero">
-                                    <rect id="mask" stroke="#000000" stroke-width="2" fill="#000000" x="-1"
+                            <g id="team-collaboration/version-control/github" stroke="none" strokeWidth="1" fill="none"
+                                fillRule="evenodd">
+                                <g id="container" transform="translate(2.000000, 2.000000)" fillRule="nonzero">
+                                    <rect id="mask" stroke="#000000" strokeWidth="2" fill="#000000" x="-1"
                                         y="-1" width="71" height="71" rx="14">
 
                                     </rect>
