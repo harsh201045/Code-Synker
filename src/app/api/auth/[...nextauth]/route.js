@@ -5,8 +5,8 @@ import GoogleProvider from 'next-auth/providers/google'
 // import EmailProvider from 'next-auth/providers/email'
 import GitHubProvider from "next-auth/providers/github";
 import mongoose from 'mongoose';
-import MongooseAdapter from '@/lib/mongooseAdapter';
-
+import { dbConnect } from '@/lib/db';
+import User from '@/models/User';
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -37,7 +37,38 @@ export const authoptions = NextAuth({
     //   from: 'NextAuth.js <no-reply@example.com>'
     // }),
   ],
-  adapter: MongooseAdapter(mongoose.connection.getClient()),
+  /*
+  id: '109059042651431514195',
+  name: 'bhavy ramani',
+  email: 'bhavyramani29@gmail.com',
+  image:
+   */
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      await dbConnect();
+      const userExists = await User.findOne({ email: user.email, provider: account.provider });
+      if (userExists)
+        return true;
+      console.log("Here", account.provider);
+      try {
+        const response = await User.create({
+          name: user.name,
+          email: user.email,
+          username: user.email.split('@')[0],
+          provider: account.provider,
+          image: user.image
+        });
+        console.log("This", response);
+        if (response)
+          return true;
+        else
+          return false;
+      } catch (e) {
+        console.log("error:", e);
+      }
+    }
+
+  }
 })
 
-export {authoptions as GET, authoptions as POST}
+export { authoptions as GET, authoptions as POST }
