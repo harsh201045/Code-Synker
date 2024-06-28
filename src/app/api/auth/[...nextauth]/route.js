@@ -4,6 +4,13 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 // import EmailProvider from 'next-auth/providers/email'
 import GitHubProvider from "next-auth/providers/github";
+import mongoose from 'mongoose';
+import MongooseAdapter from '@/lib/mongooseAdapter';
+
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 export const authoptions = NextAuth({
   providers: [
@@ -26,10 +33,11 @@ export const authoptions = NextAuth({
     }),
     // // Passwordless / email sign in
     // EmailProvider({
-    //   server: process.env.MAIL_SERVER,
+    //   server: process.env.MAIL_SERVER, 
     //   from: 'NextAuth.js <no-reply@example.com>'
     // }),
-  ]
+  ],
+  adapter: MongooseAdapter(mongoose.connection.getClient()),
 })
 
 export {authoptions as GET, authoptions as POST}
