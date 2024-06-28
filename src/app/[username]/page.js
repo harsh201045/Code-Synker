@@ -1,9 +1,9 @@
 import React from 'react'
 
-const page = () => {
+const page = ({params}) => {
   return (
     <div className='text-white'>
-      Profile Page.
+      {params.username}
     </div>
   )
 }

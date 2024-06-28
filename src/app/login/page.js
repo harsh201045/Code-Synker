@@ -2,12 +2,14 @@
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { redirect } from 'next/navigation'
+import { data } from 'autoprefixer'
 
 
 const Login = () => {
     const { data: session } = useSession();
+    console.log(session);
     if(session) {
-        redirect('/profile');
+        redirect(`/${session.user.username}`);
     }
     return (
         <div className='text-white py-14 container mx-auto'>
