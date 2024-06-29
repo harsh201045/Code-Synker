@@ -5,21 +5,9 @@ import Link from 'next/link';
 
 const Navbar = () => {
   const { data: session } = useSession()
-  // if(session) {
-  //   return <>
-  //     <p className='text-white'>Signed in as {session.user.email}</p>
-  //     <button className='text-white border border-white' onClick={() => signOut()}>Sign out</button>
-  //   </>
-  // }
   return (
     <nav className='bg-gray-900 text-white flex justify-between items-center px-4 h-16'>
       <div className='logo font-bold text-lg'>Code-Synker</div>
-      {/* <ul className='flex justify-between gap-4'>
-        <li>Home</li>
-        <li>About</li>
-        <li>Sign Up</li>
-        <li>Login</li>
-      </ul> */}
 
       <div>
         {

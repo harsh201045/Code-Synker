@@ -2,8 +2,7 @@
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { redirect } from 'next/navigation'
-import { data } from 'autoprefixer'
-
+import '../globals.css'
 
 const Login = () => {
     const { data: session } = useSession();
