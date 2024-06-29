@@ -1,6 +1,4 @@
-'use client'
-import React from 'react';
-import './globals.css';
+
 export default function Home() {
   return (
     <div className="flex justify-center flex-col items-center text-white h-[44vh]">
