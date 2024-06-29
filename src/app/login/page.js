@@ -7,9 +7,8 @@ import { data } from 'autoprefixer'
 
 const Login = () => {
     const { data: session } = useSession();
-    console.log(session);
     if(session) {
-        redirect(`/${session.user.username}`);
+        redirect(`/profile`);
     }
     return (
         <div className='text-white py-14 container mx-auto'>

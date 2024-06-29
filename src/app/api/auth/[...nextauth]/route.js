@@ -21,22 +21,6 @@ export const authoptions = NextAuth({
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       await dbConnect();
-      // const userExists = await User.findOne({ id: user.id });
-      // if (userExists) return true;
-      // try {
-      //   const response = await User.create({
-      //     id: user.id,
-      //     name: user.name,
-      //     email: user.email,
-      //     username: user.id,
-      //     provider: account.provider,
-      //     image: user.image,
-      //   });
-      //   if (updateDone) return true;
-      //   else return false;
-      // } catch (e) {
-      //   return false;
-      // }
       const checkUser = await User.findOne({ id: user.id });
       if (!checkUser) {
         const response = await User.create({
@@ -56,7 +40,6 @@ export const authoptions = NextAuth({
 
     async session({ session, user, token }) {
       await dbConnect();
-      console.log(session);
       const dbUser = await User.findOne({ username: session.user.name });
       if (dbUser) {
         session.user.username = dbUser.username;
