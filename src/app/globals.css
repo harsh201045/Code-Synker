@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+html, body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    background: radial-gradient(#ffffff33 1px, #00091d 1px);
+    background-size: 20px 20px;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  
+  nav.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
