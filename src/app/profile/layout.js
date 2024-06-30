@@ -19,7 +19,7 @@ export default function ProfileLayout({ children }) {
     const { data: session } = useSession();
     useEffect(() => {
         if (session) {
-          document.title = `${session.user.name} - Code-synker`;
+          document.title = `${session.user.name} - Code-Synker`;
         }
       }, [session]);
 
