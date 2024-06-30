@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, require: true },
   provider: { type: String, require: true },
   id: {type: String, require: true, unique: true},
+  projects: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project',
+  }],
   image: String,
 });
 
