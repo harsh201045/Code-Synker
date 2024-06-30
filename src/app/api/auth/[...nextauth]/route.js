@@ -30,6 +30,7 @@ export const authoptions = NextAuth({
           username: user.id,
           provider: account.provider,
           image: user.image,
+          projects: [],
         });
         user.name = response.username;
       }else{
