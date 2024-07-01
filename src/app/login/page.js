@@ -8,7 +8,7 @@ import '../globals.css'
 const Login = () => {
     const { data: session } = useSession();
     if(session) {
-        redirect(`/profile`);
+        redirect(`/`);
     }
     return (
         <div className='text-white py-14 container mx-auto'>
