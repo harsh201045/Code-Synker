@@ -28,7 +28,7 @@ export default function ProfileLayout({ children }) {
         <>
             <div className="flex min-h-screen flex-col">
                 <div className="flex flex-1">
-                    <aside className="w-64 h-screen sticky top-0 px-4 py-8 overflow-y-auto bg-gray-800 border-r rtl:border-r-0 rtl:border-l dark:border-gray-700">
+                    <aside className="w-64 h-screen sticky top-16 px-4 py-8 overflow-y-auto bg-gray-800 border-r rtl:border-r-0 rtl:border-l dark:border-gray-700">
                         <div className="flex flex-col items-center mt-6 -mx-2">
                             <img className="object-cover w-24 h-24 mx-2 rounded-full" src={session.user.image} alt="avatar" />
                             <h4 className="mx-2 mt-2 font-medium text-gray-200 text-lg">{session.user.name}</h4>
