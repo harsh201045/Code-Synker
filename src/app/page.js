@@ -33,7 +33,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.name, "name": projectName }),
+      body: JSON.stringify({ "owner": session.user.username, "name": projectName }),
     });
     const json = await response.json();
     if (json.error) {
