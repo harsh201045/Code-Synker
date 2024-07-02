@@ -19,7 +19,7 @@ const page = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/request', {
+    const response = await fetch('/api/request/invite', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,6 +46,7 @@ const page = () => {
       body: JSON.stringify({ "owner": session.user.name }),
     });
     const json = await response.json();
+    console.log(json);
     setProjects(json.success);
   }
 
