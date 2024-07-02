@@ -16,4 +16,4 @@ const FolderSchema = new mongoose.Schema({
     timestamps: true
 });
 
-export default mongoose.models.Project || mongoose.model('Project', FolderSchema);
+export default mongoose.models.Folder || mongoose.model('Folder', FolderSchema);

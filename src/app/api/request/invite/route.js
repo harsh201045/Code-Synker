@@ -9,7 +9,6 @@ export async function POST(req){
         const {from,to,name} = await req.json();
         const sender = await User.findOne({username:from}).populate("projects")
         const receiver = await User.findOne({username:to}).populate("projects")
-        const receiver2 = await User.findOne({username:to})
        
         if(!receiver){
             throw new Error("Enter valid username");
@@ -26,14 +25,8 @@ export async function POST(req){
         if(checkRequest){
             throw new Error("Request already exist!!");
         }
-        const project = await Project.findById(check._id);
-        project.writers.push(receiver._id);
         
-        receiver2.projects.push(project._id);
-
-        await project.save();
-        await receiver2.save();
-        await Request.create({from:from,to:to,projectId:project._id});
+        await Request.create({from:from,to:to,projectId:check._id});
 
         return NextResponse.json({success: "request successfully sent!!!"});
     }catch(e){
