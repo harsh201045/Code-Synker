@@ -17,7 +17,6 @@ const page = () => {
       body: JSON.stringify({ "owner": session.user.username }),
     });
     const json = await response.json();
-    console.log(json);
     setRequests(json.success);
   }
 
@@ -30,7 +29,6 @@ const page = () => {
       body: JSON.stringify({ "from": Requests[index].from, "to": session.user.username, "projectId": Requests[index].projectId._id }),
     });
     const json = await response.json();
-    console.log(json);
     if(json.error){
       alert(json.error);
     }
@@ -52,7 +50,6 @@ const page = () => {
       body: JSON.stringify({ "from": Requests[index].from, "to": session.user.username, "projectId": Requests[index].projectId._id }),
     });
     const json = await response.json();
-    console.log(json);
     if(json.error){
       alert(json.error);
     }

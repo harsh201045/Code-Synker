@@ -9,8 +9,8 @@ export async function POST(req){
         const user = await User.findOne({id: owner}).populate('projects', 'name');
         if(!user)
             throw new Error('User not found');
-        const index = user.projects.findIndex(project => project.name === name);
-        console.log(user.projects)
+        const index = user.projects.findIndex(project => (project.name === name && project.owner==owner));
+
         if(index !== -1)
             throw new Error('Project with this name already exists');
         const project = new Project({

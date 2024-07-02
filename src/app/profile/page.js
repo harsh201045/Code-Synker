@@ -32,7 +32,6 @@ const page = () => {
     } else {
       alert(json.success);
     }
-    console.log(json);
     setShowPopup(false);
   }
 
@@ -43,10 +42,9 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.name }),
+      body: JSON.stringify({ "owner": session.user.username }),
     });
     const json = await response.json();
-    console.log(json);
     setProjects(json.success);
   }
 
@@ -56,7 +54,7 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.name, "name": projects[i].name }),
+      body: JSON.stringify({ "owner": session.user.username, "name": projects[i].name }),
     });
     const json = await response.json();
     if (json.error) {
