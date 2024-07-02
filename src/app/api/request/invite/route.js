@@ -10,6 +10,9 @@ export async function POST(req){
         const sender = await User.findOne({username:from}).populate("projects")
         const receiver = await User.findOne({username:to}).populate("projects")
        
+        if(from==to){
+            throw new Error("You can't send request to yourself!!!");
+        }
         if(!receiver){
             throw new Error("Enter valid username");
         }
@@ -23,9 +26,16 @@ export async function POST(req){
         }
         const checkRequest = await Request.findOne({from:from,to:to,projectId:check._id});
         if(checkRequest){
-            throw new Error("Request already exist!!");
+            throw new Error("User is already invited!!!");
         }
         
+        const writersIndex = check.writers.findIndex(p=>p==to);
+
+        if(writersIndex!=-1){
+            throw new Error("User is already writer for this project!!!");
+        }
+        console.log(check.writers);
+
         await Request.create({from:from,to:to,projectId:check._id});
 
         return NextResponse.json({success: "request successfully sent!!!"});
