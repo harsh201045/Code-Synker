@@ -34,7 +34,6 @@ export async function POST(req){
         if(writersIndex!=-1){
             throw new Error("User is already writer for this project!!!");
         }
-        console.log(check.writers);
 
         await Request.create({from:from,to:to,projectId:check._id});
 
