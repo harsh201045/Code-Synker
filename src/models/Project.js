@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 
 const ProjectSchema = new mongoose.Schema({
     owner: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     writers: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
     folders: [{
         type: mongoose.Schema.Types.ObjectId,

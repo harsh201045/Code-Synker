@@ -32,18 +32,21 @@ export const authoptions = NextAuth({
           image: user.image,
           projects: [],
         });
-        user.name = response.username;
-      }else{
-        user.name = checkUser.username;
+        user.name = response.id;
+        user.id = response._id;
+      } else {
+        user.name = checkUser.id;
+        user.id = checkUser._id;
       }
       return true;
     },
 
     async session({ session, user, token }) {
       await dbConnect();
-      const dbUser = await User.findOne({ username: session.user.name });
+      const dbUser = await User.findOne({ id: session.user.name });
       if (dbUser) {
-        session.user.username = dbUser.username;
+        session.user.name = dbUser.id;
+        session.user.id = dbUser._id;
       }
       return session;
     },
