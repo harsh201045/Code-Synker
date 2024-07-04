@@ -9,9 +9,6 @@ const page = () => {
 
   const [newUserName, setnewUserName] = useState("");
 
-  
-
-  // save newusername
   const handleSave = async () => {
     const response = await fetch('/api/changeusername', {
       method: 'POST',
@@ -27,8 +24,6 @@ const page = () => {
     else {
       alert(json.success);
       session.user.username=newUserName;
-      console.log(session,newUserName);
-      setUserName(newUserName);
       setnewUserName("");
     }
   }

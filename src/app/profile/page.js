@@ -9,7 +9,7 @@ const page = () => {
   const [projects, setProjects] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [userName, setuserName] = useState('');
-  const [projectIndex,setprojectIndex] = useState(-1);
+  const [projectIndex, setprojectIndex] = useState(-1);
 
   const handlebutton = (index) => {
     setShowPopup(true);
@@ -24,7 +24,7 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "from": session.user.username, "to": userName , "name": projects[projectIndex].name }),
+      body: JSON.stringify({ "from": session.user.id, "to": userName, "name": projects[projectIndex].name }),
     });
     const json = await response.json();
     if (json.error) {
@@ -42,7 +42,7 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.username }),
+      body: JSON.stringify({ "id": session.user.id }),
     });
     const json = await response.json();
     setProjects(json.success);
@@ -54,7 +54,7 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.username, "name": projects[i].name }),
+      body: JSON.stringify({ "id": session.user.id, "name": projects[i].name, "owner": projects[i].owner }),
     });
     const json = await response.json();
     if (json.error) {
@@ -149,7 +149,7 @@ const page = () => {
                     <td className="px-6 py-2 text-lg">1-7-2024</td>
                     <td className="px-6 py-2 ">
                       <div className='flex items-center gap-2 cursor-pointer'>
-                        <svg onClick={()=>{handlebutton(index)}} className='h-14 w-8' fill="#ADB0B2"
+                        <svg onClick={() => { handlebutton(index) }} className='h-14 w-8' fill="#ADB0B2"
                           xmlns="http://www.w3.org/2000/svg"
                           xmlnsXlink="http://www.w3.org/1999/xlink"
                           version="1.1"
@@ -277,39 +277,39 @@ const page = () => {
 
       </div>
       {showPopup && (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
-            <div className="bg-gray-800 p-5 rounded-lg">
-              <form onSubmit={handleFormSubmit}>
-                <label htmlFor="userName" className="block mb-2 text-sm font-medium text-gray-300">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="userName"
-                  value={userName}
-                  onChange={(e) => setuserName(e.target.value)}
-                  className="block w-full p-2 mb-4 border rounded-md bg-gray-700 text-white"
-                  required
-                />
-                <div className="flex justify-center items-center">
-                  <button
-                    type="submit"
-                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    className="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 text-center"
-                    onClick={() => setShowPopup(false)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75">
+          <div className="bg-gray-800 p-5 rounded-lg">
+            <form onSubmit={handleFormSubmit}>
+              <label htmlFor="userName" className="block mb-2 text-sm font-medium text-gray-300">
+                Username
+              </label>
+              <input
+                type="text"
+                id="userName"
+                value={userName}
+                onChange={(e) => setuserName(e.target.value)}
+                className="block w-full p-2 mb-4 border rounded-md bg-gray-700 text-white"
+                required
+              />
+              <div className="flex justify-center items-center">
+                <button
+                  type="submit"
+                  className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  className="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 text-center"
+                  onClick={() => setShowPopup(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
-        )}
+        </div>
+      )}
     </>
   )
 }

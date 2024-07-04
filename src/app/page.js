@@ -9,7 +9,6 @@ export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const [projectName, setProjectName] = useState('');
   const { data: session } = useSession();
-
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
@@ -33,7 +32,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.username, "name": projectName }),
+      body: JSON.stringify({ "id": session.user.id, "name": projectName }),
     });
     const json = await response.json();
     if (json.error) {

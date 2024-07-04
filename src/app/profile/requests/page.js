@@ -14,46 +14,47 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "owner": session.user.username }),
+      body: JSON.stringify({ "id": session.user.id }),
     });
     const json = await response.json();
+    if (json.error) {
+      alert("Unable to fetch Requests");
+      return;
+    }
     setRequests(json.success);
   }
 
-  const handleAccept = async (index) =>{
+  const handleAccept = async (index) => {
     const response = await fetch('/api/request/accept', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "from": Requests[index].from, "to": session.user.username, "projectId": Requests[index].projectId._id }),
+      body: JSON.stringify({ "from": Requests[index].from, "to": session.user.id, "projectId": Requests[index].projectId }),
     });
     const json = await response.json();
-    if(json.error){
+    if (json.error) {
       alert(json.error);
     }
-    else{
+    else {
       alert(json.success);
       fetchRequests();
     }
   }
 
-
-
-
-  const handleReject = async (index) =>{
+  const handleReject = async (index) => {
     const response = await fetch('/api/request/reject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ "from": Requests[index].from, "to": session.user.username, "projectId": Requests[index].projectId._id }),
+      body: JSON.stringify({ "from": Requests[index].from, "to": session.user.id, "projectId": Requests[index].projectId }),
     });
     const json = await response.json();
-    if(json.error){
+    if (json.error) {
       alert(json.error);
     }
-    else{
+    else {
       alert(json.success);
       fetchRequests();
     }
@@ -63,7 +64,7 @@ const page = () => {
     fetchRequests();
   }, [session]);
 
-  
+
 
 
 
@@ -123,14 +124,14 @@ const page = () => {
                   >
                     {index + 1}
                   </th>
-                  <td className="px-6 py-4 text-lg">{request.projectId.name}</td>
+                  <td className="px-6 py-4 text-lg">{request.name}</td>
                   <td className="px-6 py-4 text-lg">{request.from}</td>
                   <td className="px-6 py-4 ">
                     <div className='flex items-center gap-3 cursor-pointer'>
                       {/* Accept */}
-                      <svg onClick={()=>{handleAccept(index)}} className='h-7 w-7' fill='green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg>
+                      <svg onClick={() => { handleAccept(index) }} className='h-7 w-7' fill='green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg>
                       {/* Reject */}
-                      <svg onClick={()=>{handleReject(index)}} className='h-7 w-7' fill='#E55F4D' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" /></svg>
+                      <svg onClick={() => { handleReject(index) }} className='h-7 w-7' fill='#E55F4D' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" /></svg>
                     </div>
                   </td>
                 </tr>
